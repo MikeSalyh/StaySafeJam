@@ -7,43 +7,67 @@ using DG.Tweening;
 
 public class N95Mask : MonoBehaviour
 {
-  private GameManager gameManager;
-  private bool isDragging;
   private Vector3 mouseOffset;
   private Vector3 startingPosition;
 
   // Start is called before the first frame update
   void Start()
   {
-    gameManager = GameObject.FindObjectOfType<GameManager>();
-    gameManager.OnStartDrag += StartDrag;
-    gameManager.OnStopDrag += Release;
     startingPosition = transform.position;
   }
+
+  private bool _isDragging = false;
 
   // Update is called once per frame
   void Update()
   {
-    if (isDragging)
+
+    if (_isDragging)
     {
       transform.position = mouseOffset + Input.mousePosition;
+    }
+
+    if (!Input.GetMouseButton(0) && _isDragging)
+    {
+      //Throw the mask
+      Release();
+      _isDragging = false;
+    }
+    else if (Input.GetMouseButtonDown(0))
+    {
+      //Check if it's over the mask starting area
+      PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+      pointerEventData.position = Input.mousePosition;
+
+      List<RaycastResult> raycastResultList = new List<RaycastResult>();
+      EventSystem.current.RaycastAll(pointerEventData, raycastResultList);
+      for (int i = 0; i < raycastResultList.Count; i++)
+      {
+        if (raycastResultList[i].gameObject.GetComponent<N95Mask>() != null)
+        {
+          Debug.Log("Got a mask!");
+          StartDrag();
+          _isDragging = true;
+          break;
+        }
+      }
     }
   }
 
   void StartDrag()
   {
     mouseOffset = transform.position - Input.mousePosition;
-    isDragging = true;
     transform.localScale = Vector2.one * 1.25f;
     transform.DOScale(0.5f, 0.25f).SetEase(Ease.OutBack);
   }
 
   void Release()
   {
-    isDragging = false;
-    if (IsOverDoctor)
+    Doctor md = GetDoctor();
+    if (md != null)
     {
       StartCoroutine(SuccessCoroutine());
+      md.GiveMask();
     }
     else
     {
@@ -53,9 +77,25 @@ public class N95Mask : MonoBehaviour
     }
   }
 
-  private bool IsOverDoctor
+  private Doctor GetDoctor()
   {
-    get{ return true; }
+    //Check if it's over the mask starting area
+    PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+    pointerEventData.position = transform.position;
+
+    List<RaycastResult> raycastResultList = new List<RaycastResult>();
+    EventSystem.current.RaycastAll(pointerEventData, raycastResultList);
+    for (int i = 0; i < raycastResultList.Count; i++)
+    {
+      if (raycastResultList[i].gameObject.CompareTag("Drop"))
+      {
+        Doctor md = raycastResultList[i].gameObject.GetComponentInParent<Doctor>();
+        if(md.state == Doctor.State.Ready)
+          return md;
+      }
+    }
+
+    return null;
   }
 
   private IEnumerator SuccessCoroutine()

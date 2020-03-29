@@ -477,6 +477,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1863248631}
     m_Modifications:
+    - target: {fileID: 485124526808905600, guid: 022016469851d224b8c5b9595ff03149,
+        type: 3}
+      propertyPath: debugKey
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2059234538133993219, guid: 022016469851d224b8c5b9595ff03149,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -719,6 +724,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1863248631}
     m_Modifications:
+    - target: {fileID: 485124526808905600, guid: 022016469851d224b8c5b9595ff03149,
+        type: 3}
+      propertyPath: debugKey
+      value: 51
+      objectReference: {fileID: 0}
     - target: {fileID: 2059234538133993219, guid: 022016469851d224b8c5b9595ff03149,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1227,7 +1237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHP: 5
-  isDragging: 0
 --- !u!4 &761425610
 Transform:
   m_ObjectHideFlags: 0
@@ -2251,6 +2260,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1863248631}
     m_Modifications:
+    - target: {fileID: 485124526808905600, guid: 022016469851d224b8c5b9595ff03149,
+        type: 3}
+      propertyPath: debugKey
+      value: 49
+      objectReference: {fileID: 0}
     - target: {fileID: 2059234538133993219, guid: 022016469851d224b8c5b9595ff03149,
         type: 3}
       propertyPath: m_LocalPosition.x

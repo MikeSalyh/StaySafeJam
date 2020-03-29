@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 2059234538133993219}
   - component: {fileID: 7410332782253262986}
   - component: {fileID: 7189379661660939490}
+  - component: {fileID: 485124526808905600}
   m_Layer: 5
   m_Name: Hospital
   m_TagString: Untagged
@@ -175,6 +176,7 @@ RectTransform:
   m_Children:
   - {fileID: 9080292901614044574}
   - {fileID: 3613541050626855438}
+  - {fileID: 5099939700817896667}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -218,6 +220,30 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &485124526808905600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2339198489777452123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623f690c73eaed546a8b872ff7aa7221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  waitingSprite: {fileID: 21300000, guid: 03c11ccd541c1a84ab6017ef042d400e, type: 3}
+  happySprite: {fileID: 21300000, guid: 14ae87c1f9b0193468e129849e9acf7f, type: 3}
+  sadSprite: {fileID: 21300000, guid: 42e6e477fea67364ea47344b17aaef39, type: 3}
+  door: {fileID: 5215890065606993663}
+  doctorImage: {fileID: 8401485046240161806}
+  hiddenX: 250
+  shownX: -100
+  patienceSlider: {fileID: 6388211314262541327}
+  pointValue: 100
+  givesPenalty: 1
+  debugKey: 48
 --- !u!1 &3732966906568709381
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +575,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!1 &7010538864424408380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5099939700817896667}
+  - component: {fileID: 1274055272029569593}
+  - component: {fileID: 8844291847780847715}
+  m_Layer: 5
+  m_Name: DropArea
+  m_TagString: Drop
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5099939700817896667
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010538864424408380}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 8.0998, y: 8.0998, z: 8.0998}
+  m_Children: []
+  m_Father: {fileID: 2059234538133993219}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -91, y: -300}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1274055272029569593
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010538864424408380}
+  m_CullTransparentMesh: 0
+--- !u!114 &8844291847780847715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010538864424408380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0.8595643, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
 --- !u!1 &7204761226746193469
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,9 +730,8 @@ GameObject:
   - component: {fileID: 4928615303165454575}
   - component: {fileID: 4698017243168650665}
   - component: {fileID: 8401485046240161806}
-  - component: {fileID: 8151061279616011400}
   m_Layer: 5
-  m_Name: Doctor
+  m_Name: DoctorSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -694,25 +791,3 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &8151061279616011400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8357904478948955659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 623f690c73eaed546a8b872ff7aa7221, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  waitingSprite: {fileID: 21300000, guid: 03c11ccd541c1a84ab6017ef042d400e, type: 3}
-  happySprite: {fileID: 21300000, guid: 14ae87c1f9b0193468e129849e9acf7f, type: 3}
-  sadSprite: {fileID: 21300000, guid: 42e6e477fea67364ea47344b17aaef39, type: 3}
-  door: {fileID: 5215890065606993663}
-  doctorImage: {fileID: 8401485046240161806}
-  hiddenX: 250
-  shownX: -100
-  patienceSlider: {fileID: 6388211314262541327}
-  debugKey: 48
