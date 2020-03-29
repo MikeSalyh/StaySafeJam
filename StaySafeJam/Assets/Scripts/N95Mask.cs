@@ -9,6 +9,7 @@ public class N95Mask : MonoBehaviour
 {
   private Vector3 mouseOffset;
   private Vector3 startingPosition;
+  public bool active = true;
 
   // Start is called before the first frame update
   void Start()
@@ -21,19 +22,18 @@ public class N95Mask : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-
     if (_isDragging)
     {
       transform.position = mouseOffset + Input.mousePosition;
     }
 
-    if (!Input.GetMouseButton(0) && _isDragging)
+    if ((!Input.GetMouseButton(0) || !active) && _isDragging)
     {
       //Throw the mask
       Release();
       _isDragging = false;
     }
-    else if (Input.GetMouseButtonDown(0))
+    else if (Input.GetMouseButtonDown(0) && active)
     {
       //Check if it's over the mask starting area
       PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
@@ -45,7 +45,6 @@ public class N95Mask : MonoBehaviour
       {
         if (raycastResultList[i].gameObject.GetComponent<N95Mask>() != null)
         {
-          Debug.Log("Got a mask!");
           StartDrag();
           _isDragging = true;
           break;
@@ -63,6 +62,12 @@ public class N95Mask : MonoBehaviour
 
   void Release()
   {
+    if (!active)
+    {
+      StartCoroutine(DisableUntilActive());
+      return;
+    }
+
     Doctor md = GetDoctor();
     if (md != null)
     {
@@ -94,7 +99,6 @@ public class N95Mask : MonoBehaviour
           return md;
       }
     }
-
     return null;
   }
 
@@ -106,5 +110,15 @@ public class N95Mask : MonoBehaviour
     transform.position = startingPosition + (Vector3.down * 100);
     transform.DOMove(startingPosition, 0.2f);
     transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack);
+  }
+
+  private IEnumerator DisableUntilActive()
+  {
+    GetComponent<Image>().enabled = false;
+    while (!active)
+    {
+      yield return new WaitForSeconds(0.1f);
+    }
+    yield return SuccessCoroutine();
   }
 }

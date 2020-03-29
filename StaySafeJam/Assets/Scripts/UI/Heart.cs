@@ -23,4 +23,9 @@ public class Heart : MonoBehaviour
   {
     img.sprite = off;
   }
+
+  public bool Status
+  {
+    get { return img.sprite == on; }
+  }
 }

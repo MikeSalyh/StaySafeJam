@@ -23,15 +23,19 @@ public class HeartsDisplay : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    //if (Input.GetKeyDown(KeyCode.Minus))
+    //  gameManager.HP -= 1;
+
     if (internalHPMemory != gameManager.HP)
     {
       for (int i = 0; i < gameManager.startingHP; i++)
       {
-        if (gameManager.HP > i)
-          hearts[i].TurnOn();
-        else
+        if (gameManager.HP <= i)
           hearts[i].TurnOff();
+        else
+          hearts[i].TurnOn();
       }
+      internalHPMemory = gameManager.HP;
     }
   }
 }

@@ -12,14 +12,20 @@ public class GameManager : MonoBehaviour
   public int HP
   {
     get { return _remainingHP; }
+    set { _remainingHP = value; }
   }
 
-  //Delegates
-  public delegate void StartDragDelegate();
-  public StartDragDelegate OnStartDrag;
-  public delegate void StopDragDelegate();
-  public StopDragDelegate OnStopDrag;
-  private bool _isDragging = false;
+  public static bool active = true;
+  public N95Mask n95;
+
+  private void Update()
+  {
+    if (Input.GetKeyDown(KeyCode.Alpha0))
+    {
+      active = !active;
+      n95.active = active;
+    }
+  }
 
   // Start is called before the first frame update
   void Start()
@@ -44,9 +50,31 @@ public class GameManager : MonoBehaviour
   {
     if (md.givesPenalty)
     {
-      _remainingHP--;
-      if (_remainingHP == 0)
-        FinishGameplay();
+      StartCoroutine(HandleFailCoroutine(md));
+    }
+  }
+
+  private IEnumerator HandleFailCoroutine(Doctor md)
+  {
+    foreach (Doctor doc in GameObject.FindObjectsOfType<Doctor>())
+    {
+      if (doc != md)
+      {
+        doc.ForceHide();
+      }
+    }
+    _remainingHP--;
+    active = false;
+    n95.active = false;
+    yield return new WaitForSeconds(2f);
+    if (_remainingHP == 0)
+    {
+      FinishGameplay();
+    }
+    else
+    {
+      active = true;
+      n95.active = true;
     }
   }
 

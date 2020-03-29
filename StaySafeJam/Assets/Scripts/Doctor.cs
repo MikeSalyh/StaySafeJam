@@ -105,8 +105,19 @@ public class Doctor : MonoBehaviour
 
       if (OnFail != null)
         OnFail(this);
+
+      for (int i = 0; i < 8; i++)
+      {
+        doctorImage.enabled = !doctorImage.enabled;
+        yield return new WaitForSeconds(0.2f);
+      }
     }
 
+    yield return GoInside();
+  }
+
+  IEnumerator GoInside()
+  {
     yield return new WaitForSeconds(0.15f);
     EnterBuilding(0.5f);
     yield return new WaitForSeconds(0.5f);
@@ -140,5 +151,16 @@ public class Doctor : MonoBehaviour
   protected virtual void ExitBuilding(float duration)
   {
     doctorImage.transform.DOLocalMoveX(shownX, duration);
+  }
+
+  public void ForceHide()
+  {
+    StopAllCoroutines();
+    state = State.Hidden;
+    EnterBuilding(0f);
+    if (patienceSlider != null)
+      patienceSlider.GetComponent<CanvasGroup>().alpha = 0f;
+    if (door != null)
+      door.gameObject.SetActive(true);
   }
 }

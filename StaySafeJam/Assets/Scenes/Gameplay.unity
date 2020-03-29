@@ -1236,7 +1236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0afe89c50cc41e240b7778e12d7ab176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHP: 5
+  startingHP: 3
+  n95: {fileID: 1311144016}
 --- !u!4 &761425610
 Transform:
   m_ObjectHideFlags: 0
@@ -1715,6 +1716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0acd1ea19a73409a03c1b2ae3a2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 1
 --- !u!1 &1623115466
 GameObject:
   m_ObjectHideFlags: 0
