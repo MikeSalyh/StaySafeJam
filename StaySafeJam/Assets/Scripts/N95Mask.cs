@@ -9,12 +9,15 @@ public class N95Mask : MonoBehaviour
 {
   private Vector3 mouseOffset;
   private Vector3 startingPosition;
+  private float trueX;
   public bool active = true;
+  public float shakeX = 300f;
 
   // Start is called before the first frame update
   void Start()
   {
     startingPosition = transform.position;
+    trueX = transform.position.x;
   }
 
   private bool _isDragging = false;
@@ -106,6 +109,10 @@ public class N95Mask : MonoBehaviour
   {
     GetComponent<Image>().enabled = false;
     yield return new WaitForSeconds(0.1f);
+
+    //Shake up the starting pos
+    startingPosition.x = trueX + Random.Range(-shakeX, shakeX);
+
     GetComponent<Image>().enabled = true;
     transform.position = startingPosition + (Vector3.down * 100);
     transform.DOMove(startingPosition, 0.2f);

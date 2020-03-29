@@ -41,7 +41,7 @@ public class AmbulanceDoctor : Doctor
     transform.DOKill();
     yield return new WaitForSeconds(0.05f);
     transform.DOLocalMoveX(shownX, 1f).SetEase(Ease.InQuint);
-    yield return new WaitForSeconds(0.1f);
+    yield return new WaitForSeconds(1f);
     state = State.Hidden;
   }
 

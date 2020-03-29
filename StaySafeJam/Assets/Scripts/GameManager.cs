@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
   public float difficulty = 0;
   public DifficultyVariables easy, hard;
   public AnimationCurve spawnVariance;
+  public float difficultyIncrementPace = 2f;
+  public float difficultyIncrementAmount = 0.1f;
   public Doctor[] doctors, ambulances;
 
   public float DoctorTime
@@ -59,29 +61,40 @@ public class GameManager : MonoBehaviour
       md.OnFail += HandleFail;
     }
     StartCoroutine(SpawnGameplay());
+    StartCoroutine(IncreaseDifficulty());
+  }
+
+  private IEnumerator IncreaseDifficulty(){
+    while (true)
+    {
+      yield return new WaitForSeconds(difficultyIncrementPace);
+      difficultyIncrementPace *= 1.5f;
+      difficulty += difficultyIncrementAmount;
+    }
   }
 
   private IEnumerator SpawnGameplay(){
     yield return new WaitForSeconds(1f);
-    SpawnDoctor(doctors);
+    SpawnDoctor(doctors, DoctorTime);
+    yield return new WaitForSeconds(0.25f);
     while (active)
     {
       float randomValue = Random.value;
       if (randomValue < SpawnChance / 2f)
-        SpawnDoctor(ambulances);
+        SpawnDoctor(ambulances, AmbulanceTime);
       if (randomValue < SpawnChance)
-        SpawnDoctor(doctors);
-      
-      yield return new WaitForSeconds(0.25f);
+        SpawnDoctor(doctors, DoctorTime);
+
+      yield return new WaitForSeconds(0.5f);
     }
   }
 
-  private bool SpawnDoctor(Doctor[] input)
+  private bool SpawnDoctor(Doctor[] input, float time)
   {
     Doctor[] freeDocs = input.Where(x => x.state == Doctor.State.Hidden).ToArray();
     if (freeDocs.Length > 0)
     {
-      freeDocs[Random.Range(0, freeDocs.Length)].Appear(DoctorTime);
+      freeDocs[Random.Range(0, freeDocs.Length)].Appear(time);
       return true;
     }
     else
@@ -107,6 +120,7 @@ public class GameManager : MonoBehaviour
 
   private IEnumerator HandleFailCoroutine(Doctor md)
   {
+    StopCoroutine(SpawnGameplay());
     foreach (Doctor doc in GameObject.FindObjectsOfType<Doctor>())
     {
       if (doc != md)
@@ -117,6 +131,8 @@ public class GameManager : MonoBehaviour
     _remainingHP--;
     active = false;
     n95.active = false;
+    difficulty /= 2f;
+    difficultyIncrementPace /= 2f;
     yield return new WaitForSeconds(2f);
     if (_remainingHP == 0)
     {
