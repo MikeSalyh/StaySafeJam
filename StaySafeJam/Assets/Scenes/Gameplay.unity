@@ -1169,10 +1169,12 @@ MonoBehaviour:
     docTime: 6
     ambulanceTime: 8
     spawnChance: 0.2
+    maxDoctors: 2
   hard:
     docTime: 2
     ambulanceTime: 3.2
     spawnChance: 0.5
+    maxDoctors: 5
   spawnVariance:
     serializedVersion: 2
     m_Curve:
@@ -1204,8 +1206,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 2.4271662
-      value: 0.61608577
+      time: 2.5346909
+      value: 0.6564884
       inSlope: 0.059495963
       outSlope: 0.059495963
       tangentMode: 0

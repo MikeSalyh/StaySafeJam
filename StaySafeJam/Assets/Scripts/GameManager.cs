@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
   public float difficultyIncrementAmount = 0.1f;
   public Doctor[] doctors, ambulances;
 
+  private Doctor[] allDocs;
+
   public float DoctorTime
   {
     get { return Mathf.Lerp(easy.docTime, hard.docTime, difficulty); }
@@ -38,6 +40,10 @@ public class GameManager : MonoBehaviour
   public float SpawnChance
   {
     get { return Mathf.Lerp(easy.spawnChance, hard.spawnChance, difficulty) * spawnVariance.Evaluate(Time.time); }
+  }
+  public int MaxDocs
+  {
+    get { return (int)Mathf.Lerp(easy.maxDoctors, hard.maxDoctors, difficulty); }
   }
 
   private void Update()
@@ -55,14 +61,14 @@ public class GameManager : MonoBehaviour
     MetagameManager.SwitchState(MetagameManager.GameState.Gameplay);
 
     _remainingHP = startingHP;
-    foreach (Doctor md in GameObject.FindObjectsOfType<Doctor>())
+    allDocs = GameObject.FindObjectsOfType<Doctor>();
+    foreach (Doctor md in allDocs)
     {
       md.OnGiveMask += HandleGiveMask;
       md.OnFail += HandleFail;
     }
     StartCoroutine(SpawnGameplay());
     StartCoroutine(IncreaseDifficulty());
-
     active = true;
   }
 
@@ -76,23 +82,31 @@ public class GameManager : MonoBehaviour
   }
 
   private IEnumerator SpawnGameplay(){
+    Debug.Log("Starting coroutine...");
     yield return new WaitForSeconds(1f);
     SpawnDoctor(doctors, DoctorTime);
     yield return new WaitForSeconds(0.25f);
-    while (active)
+    while (true)
     {
-      float randomValue = Random.value;
-      if (randomValue < SpawnChance / 2f)
-        SpawnDoctor(ambulances, AmbulanceTime);
-      if (randomValue < SpawnChance)
-        SpawnDoctor(doctors, DoctorTime);
-
+      if (active)
+      {
+        float randomValue = Random.value;
+        if (randomValue < SpawnChance / 2f)
+          SpawnDoctor(ambulances, AmbulanceTime);
+        if (randomValue < SpawnChance)
+          SpawnDoctor(doctors, DoctorTime);
+        Debug.Log("Beat " + Time.time);
+      }
       yield return new WaitForSeconds(0.5f);
     }
   }
 
   private bool SpawnDoctor(Doctor[] input, float time)
   {
+    int totalDocs = allDocs.Where(x => x.state != Doctor.State.Hidden).ToArray().Length;
+    if (totalDocs >= MaxDocs)
+      return false;
+
     Doctor[] freeDocs = input.Where(x => x.state == Doctor.State.Hidden).ToArray();
     if (freeDocs.Length > 0)
     {
@@ -122,8 +136,7 @@ public class GameManager : MonoBehaviour
 
   private IEnumerator HandleFailCoroutine(Doctor md)
   {
-    StopCoroutine(SpawnGameplay());
-    foreach (Doctor doc in GameObject.FindObjectsOfType<Doctor>())
+    foreach (Doctor doc in allDocs)
     {
       if (doc != md)
       {
@@ -143,7 +156,6 @@ public class GameManager : MonoBehaviour
     {
       active = true;
       n95.active = true;
-      StartCoroutine(SpawnGameplay());
     }
   }
 
