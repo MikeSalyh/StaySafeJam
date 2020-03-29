@@ -133,8 +133,7 @@ public class GameManager : MonoBehaviour
     _remainingHP--;
     active = false;
     n95.active = false;
-    difficulty /= 2f;
-    difficultyIncrementPace /= 2f;
+    difficulty -= 0.1f;
     yield return new WaitForSeconds(2f);
     if (_remainingHP == 0)
     {

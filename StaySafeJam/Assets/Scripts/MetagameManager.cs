@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class MetagameManager : MonoBehaviour
 {
+  public AudioLowPassFilter musicFilter;
   private static MetagameManager _instance;
   public static MetagameManager Instance
   {
@@ -49,11 +50,14 @@ public class MetagameManager : MonoBehaviour
     switch (value)
     {
       case GameState.Menu:
+        DOTween.To(() => Instance.musicFilter.cutoffFrequency, x => Instance.musicFilter.cutoffFrequency = x, 1000f, 1f);
         break;
       case GameState.Gameplay:
+        DOTween.To(() => Instance.musicFilter.cutoffFrequency, x => Instance.musicFilter.cutoffFrequency = x, 22000f, 1f);
         score = 0;
         break;
       case GameState.Finale:
+        DOTween.To(() => Instance.musicFilter.cutoffFrequency, x => Instance.musicFilter.cutoffFrequency = x, 1000f, 1f);
         break;
     }
   }

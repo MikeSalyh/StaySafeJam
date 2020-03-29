@@ -151,7 +151,10 @@ public class Doctor : MonoBehaviour
     state = State.Happy;
 
     if (patienceSlider != null)
+    {
+      patienceSlider.GetComponent<CanvasGroup>().DOKill();
       patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
+    }
     doctorImage.sprite = happySprite;
     patienceRemaining = 0;
 
