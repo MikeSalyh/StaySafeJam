@@ -13,11 +13,15 @@ public class N95Mask : MonoBehaviour
   public bool active = true;
   public float shakeX = 300f;
 
+  private AudioSource src;
+  public AudioClip pickup, putdown;
+
   // Start is called before the first frame update
   void Start()
   {
     startingPosition = transform.position;
     trueX = transform.position.x;
+    src = GetComponent<AudioSource>();
   }
 
   private bool _isDragging = false;
@@ -61,6 +65,7 @@ public class N95Mask : MonoBehaviour
     mouseOffset = transform.position - Input.mousePosition;
     transform.localScale = Vector2.one * 1.25f;
     transform.DOScale(0.5f, 0.25f).SetEase(Ease.OutBack);
+    src.PlayOneShot(pickup);
   }
 
   void Release()
@@ -82,6 +87,7 @@ public class N95Mask : MonoBehaviour
       //Return the mask to the starting place
       transform.DOMove(startingPosition, 0.4f);
       transform.DOScale(1f, 0.4f);
+      src.PlayOneShot(putdown);
     }
   }
 

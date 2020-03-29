@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AmbulanceDoctor : Doctor
 {
+  public AudioClip driveOff;
+
   protected override void EnterBuilding(float duration)
   {
   }
@@ -41,6 +43,7 @@ public class AmbulanceDoctor : Doctor
     transform.DOKill();
     yield return new WaitForSeconds(0.05f);
     transform.DOLocalMoveX(shownX, 1f).SetEase(Ease.InQuint);
+    src.PlayOneShot(driveOff);
     yield return new WaitForSeconds(1f);
     state = State.Hidden;
   }

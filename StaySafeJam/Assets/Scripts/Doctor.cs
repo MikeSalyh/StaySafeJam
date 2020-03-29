@@ -33,11 +33,19 @@ public class Doctor : MonoBehaviour
   public delegate void FailDelegate(Doctor md);
   public FailDelegate OnFail;
 
+  protected AudioSource src;
+  public AudioClip sadSound, appearSound;
+  public AudioClip[] happySounds;
+  private Vector3 defaultDrScale;
+
   // Start is called before the first frame update
   void Start()
   {
     state = State.Hidden;
-    if(door != null)
+    src = GetComponent<AudioSource>();
+    defaultDrScale = doctorImage.transform.localScale;
+
+    if (door != null)
       door.gameObject.SetActive(true);
 
     if (patienceSlider != null)
@@ -75,6 +83,8 @@ public class Doctor : MonoBehaviour
     patienceMax = time;
     patienceRemaining = time;
 
+    src.PlayOneShot(appearSound);
+
     state = State.Ready;
     ExitBuilding(0.5f);
     if (door != null)
@@ -100,6 +110,8 @@ public class Doctor : MonoBehaviour
     {
       if (OnFail != null)
         OnFail(this);
+
+      src.PlayOneShot(sadSound);
 
       state = State.Sad;
       if (patienceSlider != null)
@@ -142,6 +154,10 @@ public class Doctor : MonoBehaviour
       patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
     doctorImage.sprite = happySprite;
     patienceRemaining = 0;
+
+    src.PlayOneShot(happySounds[Random.Range(0, happySounds.Length)]);
+    doctorImage.transform.localScale = defaultDrScale * 1.25f;
+    doctorImage.transform.DOScale(defaultDrScale, 0.25f).SetEase(Ease.OutSine);
 
     if (OnGiveMask != null)
       OnGiveMask(this);
