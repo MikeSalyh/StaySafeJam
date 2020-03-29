@@ -25,20 +25,24 @@ public class Doctor : MonoBehaviour
   public Slider patienceSlider;
 
   public int pointValue = 100;
+  public bool givesPenalty = true;
 
   //Doctor delegates
   public delegate void GiveMaskDelegate(Doctor md);
   public GiveMaskDelegate OnGiveMask;
-  public delegate void FailDelegate();
+  public delegate void FailDelegate(Doctor md);
   public FailDelegate OnFail;
 
   // Start is called before the first frame update
   void Start()
   {
     state = State.Hidden;
-    door.gameObject.SetActive(true);
-    patienceSlider.GetComponent<CanvasGroup>().alpha = 0f;
-    transform.localPosition = new Vector3(hiddenX, transform.localPosition.y);
+    if(door != null)
+      door.gameObject.SetActive(true);
+
+    if (patienceSlider != null)
+      patienceSlider.GetComponent<CanvasGroup>().alpha = 0f;
+    EnterBuilding(0f);
   }
 
 
@@ -47,7 +51,8 @@ public class Doctor : MonoBehaviour
   {
     if (state == State.Ready)
     {
-      patienceSlider.value = patienceRemaining / patienceMax;
+      if(patienceSlider != null)
+        patienceSlider.value = patienceRemaining / patienceMax;
     }
 
     //DEBUG
@@ -56,25 +61,33 @@ public class Doctor : MonoBehaviour
       if (Input.GetKey(KeyCode.LeftShift))
         GiveMask();
       else
-        Appear(2f);
+        DebugAppear();
     }
   }
 
-  public void Appear(float time)
+  virtual protected void DebugAppear()
+  {
+    Appear(2f);
+  }
+
+  virtual public bool Appear(float time)
   {
     if (state != State.Hidden)
-      return;
+      return false;
 
     patienceMax = time;
     patienceRemaining = time;
 
     state = State.Ready;
     ExitBuilding(0.5f);
-    door.gameObject.SetActive(false);
+    if (door != null)
+      door.gameObject.SetActive(false);
     doctorImage.sprite = waitingSprite;
     StartCoroutine(AwaitMaskCoroutine());
 
-    patienceSlider.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
+    if (patienceSlider != null)
+      patienceSlider.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
+    return true;
   }
 
   IEnumerator AwaitMaskCoroutine()
@@ -89,18 +102,21 @@ public class Doctor : MonoBehaviour
     if (state == State.Ready)
     {
       state = State.Sad;
-      patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
+      if (patienceSlider != null)
+        patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
       doctorImage.sprite = sadSprite;
 
       if (OnFail != null)
-        OnFail();
+        OnFail(this);
     }
 
     yield return new WaitForSeconds(0.5f);
     EnterBuilding(0.5f);
     yield return new WaitForSeconds(0.5f);
     state = State.Hidden;
-    door.gameObject.SetActive(true);
+
+    if (door != null)
+      door.gameObject.SetActive(true);
   }
 
   public void GiveMask()
@@ -109,7 +125,9 @@ public class Doctor : MonoBehaviour
       return;
 
     state = State.Happy;
-    patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
+
+    if (patienceSlider != null)
+      patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
     doctorImage.sprite = happySprite;
     patienceRemaining = 0;
 
@@ -117,12 +135,12 @@ public class Doctor : MonoBehaviour
       OnGiveMask(this);
   }
 
-  void EnterBuilding(float duration)
+  protected virtual void EnterBuilding(float duration)
   {
     doctorImage.transform.DOLocalMoveX(hiddenX, duration);
   }
 
-  void ExitBuilding(float duration)
+  protected virtual void ExitBuilding(float duration)
   {
     doctorImage.transform.DOLocalMoveX(shownX, duration);
   }

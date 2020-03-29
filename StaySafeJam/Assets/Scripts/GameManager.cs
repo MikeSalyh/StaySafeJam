@@ -45,11 +45,14 @@ public class GameManager : MonoBehaviour
     Debug.Log("Gave a dr mask: " + md.pointValue);
   }
 
-  void HandleFail()
+  void HandleFail(Doctor md)
   {
-    _remainingHP--;
-    if (_remainingHP == 0)
-      FinishGameplay();
+    if (md.givesPenalty)
+    {
+      _remainingHP--;
+      if (_remainingHP == 0)
+        FinishGameplay();
+    }
   }
 
   public void FinishGameplay()
