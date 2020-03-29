@@ -645,6 +645,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 225069665}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &228147646 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1842620610076175836, guid: 2022a0f6a87e2e444b5231362b9d95b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 847987298}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde8ceece54c80c41aa7a56a0a10f115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &281384322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1055,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &540340396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1842620610076175836, guid: 2022a0f6a87e2e444b5231362b9d95b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1842620610028181210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde8ceece54c80c41aa7a56a0a10f115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &672030750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,6 +1262,145 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHP: 3
   n95: {fileID: 1311144016}
+  difficulty: 0
+  easy:
+    docTime: 5
+    ambulanceTime: 7
+    spawnChance: 0.2
+  hard:
+    docTime: 3
+    ambulanceTime: 5
+    spawnChance: 0.5
+  spawnVariance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0.5148285
+      outSlope: 0.5148285
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.24214171
+    - serializedVersion: 3
+      time: 1.2185194
+      value: 0.3179483
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2.3283403
+      value: 0.99452806
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2.4897163
+      value: 0.19624615
+      inSlope: -0.58909947
+      outSlope: -0.58909947
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2.9730866
+      value: 0.9896825
+      inSlope: 0.501326
+      outSlope: 0.501326
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 3.6416235
+      value: 0.4852016
+      inSlope: 0.047827583
+      outSlope: 0.047827583
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 4.0532513
+      value: 0.95966417
+      inSlope: 0.18555199
+      outSlope: 0.18555199
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 4.190111
+      value: 0.4892173
+      inSlope: -0.10657573
+      outSlope: -0.10657573
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5.479979
+      value: 0.764668
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5.7866516
+      value: 0.108484805
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 7.0218
+      value: 0.9774127
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 7.7975116
+      value: 0.31308883
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 9.967897
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 0
+    m_PostInfinity: 0
+    m_RotationOrder: 4
+  doctors:
+  - {fileID: 1076399455}
+  - {fileID: 1333870936}
+  - {fileID: 1863597807}
+  ambulances:
+  - {fileID: 228147646}
+  - {fileID: 540340396}
 --- !u!4 &761425610
 Transform:
   m_ObjectHideFlags: 0
@@ -1631,6 +1794,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032060762}
   m_CullTransparentMesh: 0
+--- !u!114 &1076399455 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 485124526808905600, guid: 022016469851d224b8c5b9595ff03149,
+    type: 3}
+  m_PrefabInstance: {fileID: 7579197577841501691}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623f690c73eaed546a8b872ff7aa7221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1311144012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1892,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
+--- !u!114 &1333870936 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 485124526808905600, guid: 022016469851d224b8c5b9595ff03149,
+    type: 3}
+  m_PrefabInstance: {fileID: 225069665}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623f690c73eaed546a8b872ff7aa7221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1623115466
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,6 +2157,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1863597807 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 485124526808905600, guid: 022016469851d224b8c5b9595ff03149,
+    type: 3}
+  m_PrefabInstance: {fileID: 340368296}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623f690c73eaed546a8b872ff7aa7221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1949827367
 GameObject:
   m_ObjectHideFlags: 0

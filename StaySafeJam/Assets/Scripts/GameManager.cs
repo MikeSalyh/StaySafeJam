@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,25 @@ public class GameManager : MonoBehaviour
   public static bool active = true;
   public N95Mask n95;
 
+  [Range(0f,1f)]
+  public float difficulty = 0;
+  public DifficultyVariables easy, hard;
+  public AnimationCurve spawnVariance;
+  public Doctor[] doctors, ambulances;
+
+  public float DoctorTime
+  {
+    get { return Mathf.Lerp(easy.docTime, hard.docTime, difficulty); }
+  }
+ public float AmbulanceTime
+  {
+    get { return Mathf.Lerp(easy.ambulanceTime, hard.ambulanceTime, difficulty); }
+  }
+  public float SpawnChance
+  {
+    get { return Mathf.Lerp(easy.spawnChance, hard.spawnChance, difficulty) * spawnVariance.Evaluate(Time.time); }
+  }
+
   private void Update()
   {
     if (Input.GetKeyDown(KeyCode.Alpha0))
@@ -33,13 +53,44 @@ public class GameManager : MonoBehaviour
     MetagameManager.SwitchState(MetagameManager.GameState.Gameplay);
 
     _remainingHP = startingHP;
-
     foreach (Doctor md in GameObject.FindObjectsOfType<Doctor>())
     {
       md.OnGiveMask += HandleGiveMask;
       md.OnFail += HandleFail;
     }
+    StartCoroutine(SpawnGameplay());
   }
+
+  private IEnumerator SpawnGameplay(){
+    yield return new WaitForSeconds(1f);
+    SpawnDoctor(doctors);
+    while (active)
+    {
+      float randomValue = Random.value;
+      if (randomValue < SpawnChance / 2f)
+        SpawnDoctor(ambulances);
+      if (randomValue < SpawnChance)
+        SpawnDoctor(doctors);
+      
+      yield return new WaitForSeconds(0.25f);
+    }
+  }
+
+  private bool SpawnDoctor(Doctor[] input)
+  {
+    Doctor[] freeDocs = input.Where(x => x.state == Doctor.State.Hidden).ToArray();
+    if (freeDocs.Length > 0)
+    {
+      freeDocs[Random.Range(0, freeDocs.Length)].Appear(DoctorTime);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+
 
   void HandleGiveMask(Doctor md)
   {
@@ -75,6 +126,7 @@ public class GameManager : MonoBehaviour
     {
       active = true;
       n95.active = true;
+      StartCoroutine(SpawnGameplay());
     }
   }
 
