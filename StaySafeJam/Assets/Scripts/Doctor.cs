@@ -58,9 +58,6 @@ public class Doctor : MonoBehaviour
     //DEBUG
     if (Input.GetKeyDown(debugKey))
     {
-      if (Input.GetKey(KeyCode.LeftShift))
-        GiveMask();
-      else
         DebugAppear();
     }
   }
@@ -110,7 +107,7 @@ public class Doctor : MonoBehaviour
         OnFail(this);
     }
 
-    yield return new WaitForSeconds(0.5f);
+    yield return new WaitForSeconds(0.15f);
     EnterBuilding(0.5f);
     yield return new WaitForSeconds(0.5f);
     state = State.Hidden;

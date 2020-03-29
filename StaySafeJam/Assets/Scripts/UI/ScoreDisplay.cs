@@ -18,6 +18,6 @@ public class ScoreDisplay : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    text.text = "Score: " + gameManager.Score.ToString(); 
+    text.text = "Score: " + MetagameManager.score.ToString(); 
   }
 }

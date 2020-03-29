@@ -25,6 +25,9 @@ public class MetagameManager : MonoBehaviour
     Finale
   }
 
+
+  public static int score = 0;
+
   [SerializeField]
   private GameState _currentState;
   public static GameState CurrentState
@@ -44,6 +47,7 @@ public class MetagameManager : MonoBehaviour
       case GameState.Menu:
         break;
       case GameState.Gameplay:
+        score = 0;
         break;
       case GameState.Finale:
         break;
