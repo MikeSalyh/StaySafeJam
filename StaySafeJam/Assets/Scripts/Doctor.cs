@@ -98,25 +98,29 @@ public class Doctor : MonoBehaviour
     //The player has failed to give this doctor a mask
     if (state == State.Ready)
     {
+      if (OnFail != null)
+        OnFail(this);
+
       state = State.Sad;
       if (patienceSlider != null)
         patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
       doctorImage.sprite = sadSprite;
-
-      if (OnFail != null)
-        OnFail(this);
-
-      for (int i = 0; i < 8; i++)
-      {
-        doctorImage.enabled = !doctorImage.enabled;
-        yield return new WaitForSeconds(0.2f);
-      }
+      yield return HandleMissBlinking();
     }
 
     yield return GoInside();
   }
 
-  IEnumerator GoInside()
+  protected virtual IEnumerator HandleMissBlinking()
+  {
+    for (int i = 0; i < 8; i++)
+    {
+      doctorImage.enabled = !doctorImage.enabled;
+      yield return new WaitForSeconds(0.2f);
+    }
+  }
+
+  protected virtual IEnumerator GoInside()
   {
     yield return new WaitForSeconds(0.15f);
     EnterBuilding(0.5f);
@@ -153,7 +157,7 @@ public class Doctor : MonoBehaviour
     doctorImage.transform.DOLocalMoveX(shownX, duration);
   }
 
-  public void ForceHide()
+  public virtual void ForceHide()
   {
     StopAllCoroutines();
     state = State.Hidden;
