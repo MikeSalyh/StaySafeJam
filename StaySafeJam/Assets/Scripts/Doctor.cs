@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class Doctor : MonoBehaviour
 {
@@ -25,6 +24,13 @@ public class Doctor : MonoBehaviour
   private float patienceRemaining;
   public Slider patienceSlider;
 
+  public int pointValue = 100;
+
+  //Doctor delegates
+  public delegate void GiveMaskDelegate(Doctor md);
+  public GiveMaskDelegate OnGiveMask;
+  public delegate void FailDelegate();
+  public FailDelegate OnFail;
 
   // Start is called before the first frame update
   void Start()
@@ -85,6 +91,9 @@ public class Doctor : MonoBehaviour
       state = State.Sad;
       patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
       doctorImage.sprite = sadSprite;
+
+      if (OnFail != null)
+        OnFail();
     }
 
     yield return new WaitForSeconds(0.5f);
@@ -103,6 +112,9 @@ public class Doctor : MonoBehaviour
     patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
     doctorImage.sprite = happySprite;
     patienceRemaining = 0;
+
+    if (OnGiveMask != null)
+      OnGiveMask(this);
   }
 
   void EnterBuilding(float duration)
