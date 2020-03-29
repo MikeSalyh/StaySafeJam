@@ -160,6 +160,7 @@ public class Doctor : MonoBehaviour
   public virtual void ForceHide()
   {
     StopAllCoroutines();
+    doctorImage.transform.DOKill();
     state = State.Hidden;
     EnterBuilding(0f);
     if (patienceSlider != null)

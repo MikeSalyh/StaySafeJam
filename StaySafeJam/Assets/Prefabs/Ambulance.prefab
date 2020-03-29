@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 3600626884860236978}
   - component: {fileID: 2223271998885761114}
   - component: {fileID: 732372307048323080}
+  - component: {fileID: 5952168756746063580}
   m_Layer: 5
   m_Name: Wheel
   m_TagString: Untagged
@@ -290,6 +291,19 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &5952168756746063580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036415681622109510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8928624c5f2598a49a2107c47e42febb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 300
 --- !u!1 &3977079048589797916
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +315,7 @@ GameObject:
   - component: {fileID: 6901133162348199362}
   - component: {fileID: 2126004970142009575}
   - component: {fileID: 7904941921907756562}
+  - component: {fileID: 1703682521779920520}
   m_Layer: 5
   m_Name: Wheel
   m_TagString: Untagged
@@ -362,6 +377,19 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &1703682521779920520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977079048589797916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8928624c5f2598a49a2107c47e42febb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 300
 --- !u!1 &5819737688202170454
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
     }
     StartCoroutine(SpawnGameplay());
     StartCoroutine(IncreaseDifficulty());
+
+    active = true;
   }
 
   private IEnumerator IncreaseDifficulty(){

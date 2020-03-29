@@ -11,7 +11,7 @@ public class FinaleManager : MonoBehaviour
   void Start()
   {
     MetagameManager.SwitchState(MetagameManager.GameState.Finale);
-    finalScoreText.text = "Your Score:\n"+MetagameManager.score;
+    finalScoreText.text = "Your Score\n<size=2em>" + string.Format("{0:n0}", MetagameManager.score) + "</size>";
   }
 
   public void ReturnToMenu()
