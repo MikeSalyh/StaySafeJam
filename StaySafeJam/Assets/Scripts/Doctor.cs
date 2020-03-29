@@ -122,7 +122,7 @@ public class Doctor : MonoBehaviour
 
   protected virtual IEnumerator GoInside()
   {
-    yield return new WaitForSeconds(0.15f);
+    yield return new WaitForSeconds(0.35f);
     EnterBuilding(0.5f);
     yield return new WaitForSeconds(0.5f);
     state = State.Hidden;

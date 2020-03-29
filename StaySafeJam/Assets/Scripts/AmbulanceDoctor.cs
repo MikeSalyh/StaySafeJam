@@ -49,9 +49,13 @@ public class AmbulanceDoctor : Doctor
   {
     transform.DOKill();
     transform.localPosition = new Vector2(shownX * 0.9f, transform.localPosition.y);
+
+    bool showingImg = false;
     for (int i = 0; i < 8; i++)
     {
-      GetComponent<Image>().enabled = !GetComponent<Image>().enabled;
+      foreach(Image img in GetComponentsInChildren<Image>())
+        img.enabled = showingImg;
+      showingImg = !showingImg;
       yield return new WaitForSeconds(0.2f);
     }
     transform.localPosition = new Vector2(shownX, transform.localPosition.y);
