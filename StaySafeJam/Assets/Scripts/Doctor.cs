@@ -17,16 +17,21 @@ public class Doctor : MonoBehaviour
   public State state;
   public Sprite waitingSprite, happySprite, sadSprite;
   public GameObject door;
-  private float timeRemaining;
   public Image doctorImage;
 
   public float hiddenX, shownX;
+
+  private float patienceMax;
+  private float patienceRemaining;
+  public Slider patienceSlider;
+
 
   // Start is called before the first frame update
   void Start()
   {
     state = State.Hidden;
     door.gameObject.SetActive(true);
+    patienceSlider.GetComponent<CanvasGroup>().alpha = 0f;
     transform.localPosition = new Vector3(hiddenX, transform.localPosition.y);
   }
 
@@ -34,6 +39,12 @@ public class Doctor : MonoBehaviour
   public KeyCode debugKey;
   private void Update()
   {
+    if (state == State.Ready)
+    {
+      patienceSlider.value = patienceRemaining / patienceMax;
+    }
+
+    //DEBUG
     if (Input.GetKeyDown(debugKey))
     {
       if (Input.GetKey(KeyCode.LeftShift))
@@ -48,19 +59,23 @@ public class Doctor : MonoBehaviour
     if (state != State.Hidden)
       return;
 
-    door.gameObject.SetActive(false);
-    timeRemaining = time;
+    patienceMax = time;
+    patienceRemaining = time;
+
     state = State.Ready;
     ExitBuilding(0.5f);
+    door.gameObject.SetActive(false);
     doctorImage.sprite = waitingSprite;
     StartCoroutine(AwaitMaskCoroutine());
+
+    patienceSlider.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
   }
 
   IEnumerator AwaitMaskCoroutine()
   {
-    while (timeRemaining > 0f)
+    while (patienceRemaining > 0f)
     {
-      timeRemaining -= 0.05f;
+      patienceRemaining -= 0.05f;
       yield return new WaitForSeconds(0.05f);
     }
 
@@ -68,10 +83,11 @@ public class Doctor : MonoBehaviour
     if (state == State.Ready)
     {
       state = State.Sad;
+      patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
       doctorImage.sprite = sadSprite;
     }
 
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.5f);
     EnterBuilding(0.5f);
     yield return new WaitForSeconds(0.5f);
     state = State.Hidden;
@@ -84,8 +100,9 @@ public class Doctor : MonoBehaviour
       return;
 
     state = State.Happy;
+    patienceSlider.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
     doctorImage.sprite = happySprite;
-    timeRemaining = 0;
+    patienceRemaining = 0;
   }
 
   void EnterBuilding(float duration)
