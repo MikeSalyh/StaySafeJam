@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour
           SpawnDoctor(ambulances, AmbulanceTime);
         if (randomValue < SpawnChance)
           SpawnDoctor(doctors, DoctorTime);
-        Debug.Log("Beat " + Time.time);
       }
       yield return new WaitForSeconds(0.5f);
     }

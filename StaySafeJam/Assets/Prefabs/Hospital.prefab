@@ -243,7 +243,7 @@ MonoBehaviour:
   hiddenX: 550
   shownX: -200
   patienceSlider: {fileID: 6388211314262541327}
-  pointValue: 100
+  pointValue: 200
   givesPenalty: 1
   sadSound: {fileID: 8300000, guid: 6abd4494d2bfcbf44a4a3e13ea421101, type: 3}
   appearSound: {fileID: 8300000, guid: 776bd2441739fef4d9809facde388bfd, type: 3}

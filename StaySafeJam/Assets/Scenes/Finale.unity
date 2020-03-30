@@ -620,8 +620,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <b>Donating masks in real life is easier than this game!</b> If you have
-    N95 masks, consider donating them on a service like <b>mask-match.com.</b>
+  m_text: <b>Donating a mask is easier in real life!</b> If you've got masks or other
+    PPE at home, consider donating them to healthcare workers on the front lines.
+    Check out  mask-match.com and getusppe.org.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -649,8 +650,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -690,12 +691,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 845122174}
-    characterCount: 133
+    characterCount: 190
     spriteCount: 0
-    spaceCount: 22
-    wordCount: 24
+    spaceCount: 32
+    wordCount: 34
     linkCount: 0
-    lineCount: 5
+    lineCount: 6
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

@@ -144,7 +144,7 @@ MonoBehaviour:
   hiddenX: -820
   shownX: 820
   patienceSlider: {fileID: 0}
-  pointValue: 300
+  pointValue: 100
   givesPenalty: 1
   sadSound: {fileID: 8300000, guid: 6abd4494d2bfcbf44a4a3e13ea421101, type: 3}
   appearSound: {fileID: 8300000, guid: 1c0e8125f34894a4a9a722f04692ac63, type: 3}
